@@ -1,6 +1,6 @@
 from django.contrib import admin
-from rango.models import Category, Page
-from rango.models import UserProfile
+from film_site.models import Category, Page
+from film_site.models import UserProfile
 
 # Register your models here.
 

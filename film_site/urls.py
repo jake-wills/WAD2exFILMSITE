@@ -1,8 +1,8 @@
 from django.urls import path
-from rango import views
+from film_site import views
 
 
-app_name = 'rango'
+app_name = 'film_site'
 
 urlpatterns = [
     path('', views.index, name='index'),
