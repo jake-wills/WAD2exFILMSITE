@@ -9,19 +9,20 @@
 <html >
     <head lang="en">
         <meta charset="UTF-8">
-        <title>Rango -
+        <title>Popcorn
             {% block title_block %}
-                How to Tango with Django!
+                popcor
             {% endblock %}
         </title>
-        <link rel="stylesheet" href="{% static 'login.css' %}">
+        <link rel="stylesheet" href="{% static 'base.css' %}">
+        <link rel="stylesheet" href="{% static 'form.css' %}">
     </head>
 
-    <body class main>
+    <body>
     <div class="parent" >
         <div class="div1"> <a href="{% url 'film_site:index' %}">logo</a> </div>
-        <div class="div2">  hello    </div>
-        <div class="div3">  hello    </div>
+        <div class="div2"> <div class="nested">  <a href="{% url 'film_site:about' %}">Category</a> </div>    </div>
+        <div class="div3"> <div class="nested">  <a href="{% url 'film_site:about' %}">Genres</a> </div>    </div>
 
 
         <div class="div4">

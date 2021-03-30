@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block body_block %}
+
     {% if category %}
         <h1> {{ category.name }}</h1>
     {% if pages %}
@@ -26,6 +27,7 @@
     <a href="{% url 'film_site:add_page' category.slug %}">Add page</a> <br />
     {% endif %}
     {% else %}
+
     The Specified category does not exist.
     {% endif %}
 {% endblock %}
