@@ -11,8 +11,8 @@
 
 
 {% block body_block %}
-    <h1>Rango says...</h1>
-    <div>
+    <h1>Home</h1>
+  <!--  <div>
         {% if user.is_authenticated %}
             howdy {{ user.username }}!
         {% else %}
@@ -21,19 +21,19 @@
         <br />
         <strong>{{ boldmessage }} </strong> <br />
     </div>
-
+-->
     <div>
-            <h2>Most liked categories</h2>
-        {% if categories %}
+            <h2>Highest rated films</h2>
+        {% if films %}
             <ul>
-                {% for category in categories %}
+                {% for film in films %}
                     <li>
-                        <a href="{% url 'film_site:show_category' category.slug %}">{{ category.name }}</a>
+                        <a href="{% url 'film_site:show_category' category.slug %}">{{ film.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <strong> There are no categories present. </strong>
+
         {% endif %}
         </div>
 

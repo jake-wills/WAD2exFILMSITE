@@ -21,6 +21,29 @@ class Category(models.Model):
         return self.name
 
 
+# class Film(models.Model):
+#     NAME_MAX_LENGTH = 128
+#     BIO_MAX_LENGTH = 500
+#     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
+#     rating = models.IntegerField(default=0)
+#     reviews = models.IntegerField(default=0)
+#     slug = models.SlugField(unique=True)
+#
+#     director = models.CharField(max_length=NAME_MAX_LENGTH)
+#     bio = models.CharField(max_length=BIO_MAX_LENGTH)
+#     img = models.ImageField(name=name, upload_to='film_images', )
+#
+#     def save(self, *args, **kwargs):
+#         self.slug = slugify(self.name)
+#         super(Film, self).save(*args, **kwargs)
+#
+#     class Meta:
+#         verbose_name_plural = "films"
+#
+#     def __str__(self):
+#         return self.name
+
+
 class Page(models.Model):
     TITLE_MAX_LENGTH = 128
     URL_MAX_LENGTH = 200
@@ -35,9 +58,8 @@ class Page(models.Model):
 
 
 class UserProfile(models.Model):
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    website = models.URLField(blank=True)
+    email = models.EmailField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):

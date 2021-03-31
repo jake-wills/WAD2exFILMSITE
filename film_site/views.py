@@ -19,9 +19,10 @@ def index(request):
     page_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
-    context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    context_dict['boldmessage'] = 'High rated films'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
+   # context_dict['films'] = film_list TODO
 
     visitor_cookie_handler(request)
     response = render(request, 'film_site/index.html', context=context_dict)
@@ -98,7 +99,7 @@ def add_page(request, category_name_slug):
         print(form.errors)
 
     context_dict = {'form': form, 'category': category}
-    return render(request, 'film_site/add_page.html', context=context_dict)
+    return render(request, 'film_site/add_review.html', context=context_dict)
 
 
 def register(request):
@@ -129,6 +130,9 @@ def register(request):
     return render(request, 'film_site/register.html', context={'user_form': user_form,
                                                            'profile_form': profile_form,
                                                            'registered': registered})
+
+
+
 
 def user_login(request):
     if request.method == 'POST':
