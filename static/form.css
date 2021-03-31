@@ -7,10 +7,9 @@ input[type=password],input[type=text], input[type=email]{
   box-sizing: border-box;
 }
 
-h1 {
+.formh1{
     text-align: center;
     background-color: #BBB;
-
 }
 
 input[type=button], input[type=submit], input[type=reset] {
@@ -22,15 +21,6 @@ input[type=button], input[type=submit], input[type=reset] {
   margin: 4px 2px;
   cursor: pointer;
 }
-
-.formbox{
-  margin: 30px;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  width:100%;
-}
-
 
 .form_css{
   max-width: 600px;
