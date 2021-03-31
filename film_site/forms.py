@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import EmailInput
 
-from film_site.models import Page, Category, UserProfile# Film
+from film_site.models import Page, Category, UserProfile, Film
 from django.contrib.auth.models import User
 
 
@@ -17,22 +17,7 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = ('name',)
 
-# class FilmForm(forms.ModelForm):
-#     name = forms.CharField(max_length=Film.NAME_MAX_LENGTH,
-#                            help_text="Please enter the film name")
-#     bio = forms.CharField(max_length=Film.BIO_MAX_LENGTH,
-#                           help_text="Please enter the film Bio" )
-#     director = forms.CharField(max_length=Film.NAME_MAX_LENGTH,
-#                                help_text="Please enter the director name")
-#     rating = forms.IntegerField(default=0)
-#     reviews = forms.IntegerField(default=0)
-#     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-#
-#     class Meta:
-#         model = Category
-#         fields = ('name', 'picture', 'bio', 'director')
-#
-#
+
 
 class PageForm(forms.ModelForm):
     title = forms.CharField(max_length=Page.TITLE_MAX_LENGTH,

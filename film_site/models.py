@@ -21,27 +21,33 @@ class Category(models.Model):
         return self.name
 
 
-# class Film(models.Model):
-#     NAME_MAX_LENGTH = 128
-#     BIO_MAX_LENGTH = 500
-#     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
-#     rating = models.IntegerField(default=0)
-#     reviews = models.IntegerField(default=0)
-#     slug = models.SlugField(unique=True)
-#
-#     director = models.CharField(max_length=NAME_MAX_LENGTH)
-#     bio = models.CharField(max_length=BIO_MAX_LENGTH)
-#     img = models.ImageField(name=name, upload_to='film_images', )
-#
-#     def save(self, *args, **kwargs):
-#         self.slug = slugify(self.name)
-#         super(Film, self).save(*args, **kwargs)
-#
-#     class Meta:
-#         verbose_name_plural = "films"
-#
-#     def __str__(self):
-#         return self.name
+class Film(models.Model):
+    NAME_MAX_LENGTH = 128
+    BIO_MAX_LENGTH = 500
+    name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
+
+    rating = models.IntegerField(default=0)
+    reviews = models.IntegerField(default=0)
+    slug = models.SlugField(unique=True)
+    director = models.CharField(max_length=NAME_MAX_LENGTH)
+    bio = models.CharField(max_length=BIO_MAX_LENGTH)
+    img = models.ImageField(upload_to='film_images', blank=True)
+    category = models.PositiveSmallIntegerField(choices=(
+                                                        (1, "action-adventure"),
+                                                        (2, "comedy"),
+                                                        (3, "crime"),
+                                                        (4, "horror"),
+                                                        (5, "sci-fi"),
+                                                                    ))
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Film, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "films"
+
+    def __str__(self):
+        return self.name
 
 
 class Page(models.Model):
