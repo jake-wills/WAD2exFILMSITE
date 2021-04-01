@@ -35,11 +35,11 @@ class Film(models.Model):
     bio = models.CharField(max_length=BIO_MAX_LENGTH)
     img = models.ImageField(upload_to='film_images/', blank=True)
     category = models.PositiveSmallIntegerField(choices=(
-        (1, "action-adventure"),
-        (2, "comedy"),
-        (3, "crime"),
-        (4, "horror"),
-        (5, "sci-fi"),
+        (1, "Action-Adventure"),
+        (2, "Comedy"),
+        (3, "Crime"),
+        (4, "Horror"),
+        (5, "Sci-fi"),
     ))
 
     def save(self, *args, **kwargs):

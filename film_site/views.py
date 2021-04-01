@@ -61,13 +61,16 @@ def show_film(request, film_name_slug):
     context_dict = {}
     try:
         film = Film.objects.get(slug=film_name_slug)
+        samecategory = Film.objects.filter(category=film.category)
         curfilmreviews = Review.objects.filter(film=film)
 
         context_dict['film'] = film
         context_dict['reviews'] = curfilmreviews
+        context_dict['similar_films'] = samecategory
     except Film.DoesNotExist:
         context_dict['film'] = None
         context_dict['reviews'] = None
+        context_dict['similar_films'] = None
     return render(request, 'film_site/film.html', context=context_dict)
 
 
