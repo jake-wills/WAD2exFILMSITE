@@ -1,4 +1,6 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
@@ -33,12 +35,13 @@ class Film(models.Model):
     bio = models.CharField(max_length=BIO_MAX_LENGTH)
     img = models.ImageField(upload_to='film_images', blank=True)
     category = models.PositiveSmallIntegerField(choices=(
-                                                        (1, "action-adventure"),
-                                                        (2, "comedy"),
-                                                        (3, "crime"),
-                                                        (4, "horror"),
-                                                        (5, "sci-fi"),
-                                                                    ))
+        (1, "action-adventure"),
+        (2, "comedy"),
+        (3, "crime"),
+        (4, "horror"),
+        (5, "sci-fi"),
+    ))
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Film, self).save(*args, **kwargs)
@@ -48,6 +51,30 @@ class Film(models.Model):
 
     def __str__(self):
         return self.name
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+
+    def __str__(self):
+        return self.user.username
+
+
+
+
+class Review(models.Model):
+    REVIEW_MAX_LENGTH = 500
+    reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=5, validators=[
+        MaxValueValidator(5),
+        MinValueValidator(0)])
+    reviewtext = models.CharField(max_length=REVIEW_MAX_LENGTH)
+    def __str__(self):
+        return self.rating
+
 
 
 class Page(models.Model):
@@ -63,10 +90,3 @@ class Page(models.Model):
         return self.title
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-
-    def __str__(self):
-        return self.user.username

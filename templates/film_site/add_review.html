@@ -7,19 +7,17 @@
 </title>
 
 {% block body_block %}
-    <h1>Add Page to {{ category.name }} </h1>
+    <h1>Add Review to {{ film.name }} </h1>
 
-        <form id="add_page_form" method="post" action="{% url 'film_site:add_page'  category.slug %}">
+        <form id="add_review_form" method="post" action="{% url 'film_site:add_review'  film.slug %}">
             {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
+
             {% for field in form.visible_fields %}
                 {{ field.errors }}
                 {{ field.help_text }}
                 {{ field }}
             {% endfor %}
-            <input type="submit" name="submit" value="Add Page"/>
+            <input type="submit" name="submit" value="Add Review"/>
         </form>
 
 {% endblock %}

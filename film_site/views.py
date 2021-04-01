@@ -1,28 +1,29 @@
 from django.shortcuts import render
-from film_site.models import Category
+from film_site.models import Category, Page, Film, Review,UserProfile
 from django.http import HttpResponse
-from film_site.models import Page
+
 from film_site.forms import CategoryForm
 from django.shortcuts import redirect
 from film_site.forms import PageForm
 from django.urls import reverse
-from film_site.forms import UserForm, UserProfileForm
+from film_site.forms import UserForm, UserProfileForm, ReviewForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 
-
-
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
+    film_list = Film.objects.order_by('-name')[:5]
+    review_list = Review.objects.order_by('-rating')[:5]
 
     context_dict = {}
+    context_dict['films'] = film_list
+    context_dict['reviews'] = review_list
     context_dict['boldmessage'] = 'High rated films'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
-   # context_dict['films'] = film_list TODO
 
     visitor_cookie_handler(request)
     response = render(request, 'film_site/index.html', context=context_dict)
@@ -34,7 +35,6 @@ def about(request):
 
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
-
 
     return render(request, 'film_site/about.html', context=context_dict)
 
@@ -58,6 +58,38 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
     return render(request, 'film_site/category.html', context=context_dict)
 
+
+def show_film(request, film_name_slug):
+    context_dict = {}
+    try:
+        film = Film.objects.get(slug=film_name_slug)
+        review = Review.objects.filter(film=film)
+
+        context_dict['film'] = film
+        context_dict['reviews'] = review
+    except Film.DoesNotExist:
+        context_dict['film'] = None
+        context_dict['reviews'] = None
+    return render(request, 'film_site/film.html', context=context_dict)
+
+
+def show_film_genre(request, film_name_slug):
+    context_dict = {}
+    try:
+        filmname = Film.objetcs.get(slug=film_name_slug)
+
+        films = Film.objects.filter(category=filmname.category)
+
+        context_dict['films'] = films
+
+        context_dict['filmname'] = filmname
+    except Film.DoesNotExist:
+        context_dict['films'] = None
+        context_dict['filmname'] = None
+
+    return render(request, 'film_site/film.html', context=context_dict)
+
+
 @login_required
 def add_category(request):
     form = CategoryForm()
@@ -73,6 +105,36 @@ def add_category(request):
             print(form.errors)
 
     return render(request, 'film_site/add_category.html', {'form': form})
+
+def add_review(request, film_name_slug):
+    try:
+        film = Film.objects.get(slug=film_name_slug)
+
+    except film.DoesNotExist:
+        film = None
+        # You cannot add a page to a Category that does not exist...
+    if film is None:
+        return redirect(reverse('filmsite:index'))
+    form = ReviewForm()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            if film:
+                review = form.save(commit=False)
+                review.film = film
+                review.reviewer =  request.user
+              #  review.reviewtext = form.reviewtext
+               # review.rating = form.rating
+                review.save()
+                return redirect(reverse('film_site:show_film',
+                                        kwargs={'film_name_slug':
+                                                    film_name_slug}))
+    else:
+        print(form.errors)
+
+    context_dict = {'form': form, 'film': film}
+    return render(request, 'film_site/add_review.html', context=context_dict)
+
 
 @login_required
 def add_page(request, category_name_slug):
@@ -128,10 +190,8 @@ def register(request):
         profile_form = UserProfileForm()
 
     return render(request, 'film_site/register.html', context={'user_form': user_form,
-                                                           'profile_form': profile_form,
-                                                           'registered': registered})
-
-
+                                                               'profile_form': profile_form,
+                                                               'registered': registered})
 
 
 def user_login(request):
@@ -153,14 +213,17 @@ def user_login(request):
     else:
         return render(request, 'film_site/login.html')
 
+
 @login_required
 def restricted(request):
     return render(request, 'film_site/restricted.html')
+
 
 @login_required
 def user_logout(request):
     logout(request)
     return redirect(reverse('film_site:index'))
+
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
