@@ -33,7 +33,7 @@ class Film(models.Model):
     slug = models.SlugField(unique=True)
     director = models.CharField(max_length=NAME_MAX_LENGTH)
     bio = models.CharField(max_length=BIO_MAX_LENGTH)
-    img = models.ImageField(upload_to='film_images', blank=True)
+    img = models.ImageField(upload_to='film_images/', blank=True)
     category = models.PositiveSmallIntegerField(choices=(
         (1, "action-adventure"),
         (2, "comedy"),
