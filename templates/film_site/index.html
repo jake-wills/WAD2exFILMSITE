@@ -23,7 +23,7 @@
     </div>
 -->
     <div>
-            <h2>Highest rated films</h2>
+            <h2>Films i have put in</h2>
         {% if films %}
             <ul>
                 {% for film in films %}
@@ -34,22 +34,6 @@
             </ul>
         {% else %}
 
-        {% endif %}
-        </div>
-
-        <div><strong>
-            <h2>reviews for this film</h2>
-        {% if reviews %}
-            <ul>
-                {% for review in reviews %}
-                    <li>
-                       {{ review.rating }}
-                    </li>
-                {% endfor %}
-            </ul>
-            </strong>
-        {% else %}
-            <strong> There are no Pages present. </strong>
         {% endif %}
         </div>
 

@@ -40,8 +40,6 @@ def about(request):
 
 
 def show_category(request, category_name_slug):
-    # Create a context dictionary which we can pass
-    # to the template rendering engine.
     context_dict = {}
     try:
 
@@ -63,10 +61,10 @@ def show_film(request, film_name_slug):
     context_dict = {}
     try:
         film = Film.objects.get(slug=film_name_slug)
-        review = Review.objects.filter(film=film)
+        curfilmreviews = Review.objects.filter(film=film)
 
         context_dict['film'] = film
-        context_dict['reviews'] = review
+        context_dict['reviews'] = curfilmreviews
     except Film.DoesNotExist:
         context_dict['film'] = None
         context_dict['reviews'] = None

@@ -12,12 +12,16 @@
 {% block body_block %}
     {% if film %}
         <h1> {{ film.name }}</h1>
-    {% if pages %}
-    <ul>
-        {% for r in review %}
-        <li>{{ review.rating }}</li>
+    {% if reviews %}
+        {% for r in reviews %}
+             <ul>
+
+                 <li>{{r.rating }}</li>
+                 <li>{{r.reviewer}}</li>
+                 <li>{{r.reviewtext}}</li>
+
+            </ul>
         {% endfor %}
-    </ul>
     {% else %}
     <strong> No reviews for this film yet.</strong>
     {% endif %}
