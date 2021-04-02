@@ -14,17 +14,14 @@ from datetime import datetime
 
 
 def index(request):
-    category_list = Category.objects.order_by('-likes')[:5]
-    page_list = Page.objects.order_by('-views')[:5]
+
     film_list = Film.objects.order_by('-name')[:5]
-    review_list = Review.objects.order_by('-rating')[:5]
+    toprated = Film.objects.order_by('-rating')[:5]
 
     context_dict = {}
     context_dict['films'] = film_list
-    context_dict['reviews'] = review_list
+    context_dict['toprated'] = toprated
     context_dict['boldmessage'] = 'High rated films'
-    context_dict['categories'] = category_list
-    context_dict['pages'] = page_list
 
     visitor_cookie_handler(request)
     response = render(request, 'film_site/index.html', context=context_dict)
@@ -64,6 +61,7 @@ def show_film(request, film_name_slug):
         curfilmreviews = Review.objects.filter(film=film)
         avgrating = Review.objects.filter(film=film).aggregate(Avg('rating'))
         film.views = film.views+1
+        film.rating = float(avgrating['rating__avg'])
         film.save()
 
         context_dict['film'] = film
@@ -132,10 +130,12 @@ def add_review(request, film_name_slug):
                 review = form.save(commit=False)
                 review.film = film
                 review.reviewer =  request.user
+
               #  review.reviewtext = form.reviewtext
                # review.rating = form.rating
                 review.save()
                 film.reviews = film.reviews + 1
+
                 film.save()
                 return redirect(reverse('film_site:show_film',
                                         kwargs={'film_name_slug':

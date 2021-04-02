@@ -23,13 +23,14 @@
     </div>
 -->
     <div>
-            <h2>Films i have put in</h2>
-        {% if films %}
+            <h2>Top 5 rated films</h2>
+        {% if toprated %}
             <ul>
-                {% for film in films %}
-                    <li>
+                {% for film in toprated %}
+
                         <a href="{% url 'film_site:show_film' film.slug %}">{{ film.name }}</a>
-                    </li>
+                        <img src="{{ film.img.url }}" height="180" width="120">
+
                 {% endfor %}
             </ul>
         {% else %}
