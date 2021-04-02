@@ -1,0 +1,38 @@
+{% extends 'film_site/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    {% if category %}
+        {{ category.catname }}
+    {% else %}
+        Unknown category
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+    {% if category %}
+        <div class="filminfo">
+            <h1> {{ catname }}</h1>
+
+
+            <div class="Similar films">
+                {% for f in catFilms %}
+                    <strong> {{f.name}}</strong>
+
+                {% endfor %}
+            </div>
+         </div>
+
+
+        {% if user.is_authenticated %}
+
+        {% endif %}
+
+
+    {% else %}
+    The Specified category does not exist.
+    {% endif %}
+
+
+{% endblock %}

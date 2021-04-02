@@ -29,9 +29,23 @@
 
                 <a href="{% url 'film_site:login' %}">Login</a>
             {% endif %}
-
-            <a href="{% url 'film_site:about' %}">Genres</a>
             <a href="{% url 'film_site:about' %}">Category</a>
+            <div class="dropdown">
+                <button class="dropbtn">Genre
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+
+                    <a href="{% url 'film_site:show_film_genre' 1 %}"> Action Adventure </a>
+                    <a href="{% url 'film_site:show_film_genre' 2 %}"> Comedy </a>
+                    <a href="{% url 'film_site:show_film_genre' 3 %}"> Crime </a>
+                    <a href="{% url 'film_site:show_film_genre' 4 %}"> Horror </a>
+                    <a href="{% url 'film_site:show_film_genre' 5 %}"> Sci-Fi </a>
+
+
+                </div>
+            </div>
+
 
         </div>
 
@@ -47,9 +61,7 @@
         </div>
 
         <div class="div13">
-        {% block sidebar_block %}
 
-        {% endblock %}
         </div>
 
 
@@ -58,7 +70,6 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'film_site:restricted' %}">Restricted Page</a>
                 <a href="{% url 'film_site:logout' %}">Logout</a>
-                <a href="{% url 'film_site:add_category' %}">Add a New Category</a>
 
 
             {% else %}

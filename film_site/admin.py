@@ -9,8 +9,8 @@ class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'url')
 
 
-class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
+# class CategoryAdmin(admin.ModelAdmin):
+#     prepopulated_fields = {'slug': ('category',)}
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('reviewer', 'film', 'rating', 'reviewtext')
@@ -19,7 +19,7 @@ class ReviewAdmin(admin.ModelAdmin):
 #   list_display = ('title', 'category', 'url')
 
 
-admin.site.register(Category, CategoryAdmin)
+admin.site.register(Category)
 admin.site.register(Page, PageAdmin)
 admin.site.register(UserProfile)
 admin.site.register(Film)

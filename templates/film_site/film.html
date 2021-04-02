@@ -19,34 +19,44 @@
             {{ film.director }}
             {{ film.bio }}
             {{ film.get_category_display}}
-        </div>
+
+            {{ avgrating.rating__avg|floatformat:1 }}
+
+
+            <div class="Similar films">
+                {% for f in similar_films %}
+                     {% if film.name == f.name %}
+
+                    {% else %}
+                    <strong> {{f.name}}</strong>
+                    {% endif %}
+                {% endfor %}
+            </div>
+         </div>
 
         <div class="reviewtab">
-        {% if reviews %}
-            <h1>Reviews for this film</h1>
-            {% for r in reviews %}
-                 <ul>
+            {% if reviews %}
+                <h1>Reviews for this film</h1>
 
-                     <li>{{r.rating }} /5 </li>
-                     <li>{{r.reviewtext}}</li>
-                     <li>By: {{r.reviewer}} </li>
+                {% for r in reviews %}
+                     <ul>
 
-                </ul>
-            {% endfor %}
-        {% else %}
-        <strong> No reviews for this film yet.</strong>
-        {% endif %}
+                         <li>{{r.rating }} /5 </li>
+                         <li>{{r.reviewtext}}</li>
+                         <li>By: {{r.reviewer}} </li>
+
+                    </ul>
+                {% endfor %}
+            {% else %}
+            <strong> No reviews for this film yet.</strong>
+            {% endif %}
         </div>
 
-        <div class="Similar films">
-            {% for f in similar_films %}
-                 {% if film.name == f.name %}
 
-                {% else %}
-                <strong> {{f.name}}</strong>
-                {% endif %}
-            {% endfor %}
-        </div>
+
+
+
+
 
         {% if user.is_authenticated %}
 

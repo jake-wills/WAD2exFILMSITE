@@ -6,21 +6,23 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    NAME_MAX_LENGTH = 128
-    name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
-    views = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
+    category = models.PositiveSmallIntegerField(choices=(
+        (1, "Action-Adventure"),
+        (2, "Comedy"),
+        (3, "Crime"),
+        (4, "Horror"),
+        (5, "Sci-fi"),))
+
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.category)
         super(Category, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "categories"
 
-    def __str__(self):
-        return self.name
+
 
 
 class Film(models.Model):
@@ -33,6 +35,7 @@ class Film(models.Model):
     slug = models.SlugField(unique=True)
     director = models.CharField(max_length=NAME_MAX_LENGTH)
     bio = models.CharField(max_length=BIO_MAX_LENGTH)
+    views = models.IntegerField(default=0)
     img = models.ImageField(upload_to='film_images/', blank=True)
     category = models.PositiveSmallIntegerField(choices=(
         (1, "Action-Adventure"),

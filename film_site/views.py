@@ -1,8 +1,9 @@
+from django.db.models import Avg
 from django.shortcuts import render
 from film_site.models import Category, Page, Film, Review,UserProfile
 from django.http import HttpResponse
 
-from film_site.forms import CategoryForm
+#from film_site.forms import CategoryForm
 from django.shortcuts import redirect
 from film_site.forms import PageForm
 from django.urls import reverse
@@ -42,9 +43,7 @@ def about(request):
 def show_category(request, category_name_slug):
     context_dict = {}
     try:
-
         category = Category.objects.get(slug=category_name_slug)
-
         pages = Page.objects.filter(category=category)
 
         context_dict['pages'] = pages
@@ -63,53 +62,59 @@ def show_film(request, film_name_slug):
         film = Film.objects.get(slug=film_name_slug)
         samecategory = Film.objects.filter(category=film.category)
         curfilmreviews = Review.objects.filter(film=film)
+        avgrating = Review.objects.filter(film=film).aggregate(Avg('rating'))
+        film.views = film.views+1
+        film.save()
 
         context_dict['film'] = film
+        context_dict['avgrating'] = avgrating
         context_dict['reviews'] = curfilmreviews
         context_dict['similar_films'] = samecategory
     except Film.DoesNotExist:
+        context_dict['avgrating'] = None
         context_dict['film'] = None
         context_dict['reviews'] = None
         context_dict['similar_films'] = None
     return render(request, 'film_site/film.html', context=context_dict)
 
 
-def show_film_genre(request, film_name_slug):
+def show_film_genre(request, choice):
     context_dict = {}
     try:
-        filmname = Film.objetcs.get(slug=film_name_slug)
+        category = Category.objects.get(category=choice)
+        catname = category.get_category_display
+        catFilms = Film.objects.filter(category=category.category)
 
-        films = Film.objects.filter(category=filmname.category)
-
-        context_dict['films'] = films
-
-        context_dict['filmname'] = filmname
+        context_dict['category'] = category
+        context_dict['catFilms'] = catFilms
+        context_dict['catname'] = catname
     except Film.DoesNotExist:
-        context_dict['films'] = None
-        context_dict['filmname'] = None
-
-    return render(request, 'film_site/film.html', context=context_dict)
+        context_dict['category'] = None
+        context_dict['catFilms'] = None
+        context_dict['catname'] = None
+    return render(request, 'film_site/Genre.html', context=context_dict)
 
 
 @login_required
-def add_category(request):
-    form = CategoryForm()
-
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
-
-        if form.is_valid():
-
-            form.save(commit=True)
-            return redirect(reverse('film_site:index'))
-        else:
-            print(form.errors)
-
-    return render(request, 'film_site/add_category.html', {'form': form})
+# def add_category(request):
+#     form = CategoryForm()
+#
+#     if request.method == 'POST':
+#         form = CategoryForm(request.POST)
+#
+#         if form.is_valid():
+#
+#             form.save(commit=True)
+#             return redirect(reverse('film_site:index'))
+#         else:
+#             print(form.errors)
+#
+#     return render(request, 'film_site/add_category.html', {'form': form})
 
 def add_review(request, film_name_slug):
     try:
         film = Film.objects.get(slug=film_name_slug)
+
 
     except film.DoesNotExist:
         film = None
@@ -127,6 +132,8 @@ def add_review(request, film_name_slug):
               #  review.reviewtext = form.reviewtext
                # review.rating = form.rating
                 review.save()
+                film.reviews = film.reviews + 1
+                film.save()
                 return redirect(reverse('film_site:show_film',
                                         kwargs={'film_name_slug':
                                                     film_name_slug}))
