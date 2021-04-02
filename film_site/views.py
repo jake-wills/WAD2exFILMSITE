@@ -84,10 +84,13 @@ def show_film_genre(request, choice):
         category = Category.objects.get(category=choice)
         catname = category.get_category_display
         catFilms = Film.objects.filter(category=category.category)
+        catFilms = catFilms.order_by('name')
+        topFilms = catFilms.order_by('-views')[:5]
 
         context_dict['category'] = category
         context_dict['catFilms'] = catFilms
         context_dict['catname'] = catname
+        context_dict['topFilms'] = topFilms
     except Film.DoesNotExist:
         context_dict['category'] = None
         context_dict['catFilms'] = None

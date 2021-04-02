@@ -13,17 +13,32 @@
 
     {% if category %}
         <div class="filminfo">
-            <h1> {{ catname }}</h1>
+            <h1> {{ catname }}</h1><br>
 
 
-            <div class="Similar films">
-                {% for f in catFilms %}
+            <div class="topfilms">
+                <h1> Most Popular</h1>
+                {% for f in topFilms %}
                     <a href="{% url 'film_site:show_film' f.slug %}">{{ f.name }}</a>
                     <img src="{{ f.img.url }}" height="180" width="120">
 
                 {% endfor %}
             </div>
+            <br>
+
+            <div class="sidetab">
+                <h3>A-Z {{ catname }} films </h3>
+
+                {% for f in catFilms %}
+                    <a href="{% url 'film_site:show_film' f.slug %}">{{ f.name }}</a>
+                    <br>
+
+                {% endfor %}
+            </div>
+
+
          </div>
+        <br>
 
 
         {% if user.is_authenticated %}

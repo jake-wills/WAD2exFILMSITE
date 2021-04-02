@@ -23,14 +23,14 @@ a.logo {
 
 }
 
-.reviewtab {
+.sidetab {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
+  width: 240px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 100px; /* Stay at the top */
   color: white;
-  padding: 20px 50px;
+  padding: 10px 30px;
   right: 0;
   background-color: #BBB; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
