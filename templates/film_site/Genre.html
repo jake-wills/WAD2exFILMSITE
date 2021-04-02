@@ -19,6 +19,7 @@
             <div class="Similar films">
                 {% for f in catFilms %}
                     <a href="{% url 'film_site:show_film' f.slug %}">{{ f.name }}</a>
+                    <img src="{{ f.img.url }}" height="180" width="120">
 
                 {% endfor %}
             </div>

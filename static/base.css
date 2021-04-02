@@ -90,6 +90,29 @@ a.logo {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.div14 a{
+    text-decoration: none;
+    color: black;
+
+}
+.div12 a{
+    text-decoration: none;
+    color: black;
+
+}
+
+.filminfo a{
+    text-decoration: none;
+    color: black;
+
+}
+
+a:hover {
+  color : #909899;
+  cursor: pointer;
+}
+
+
 
 
 
