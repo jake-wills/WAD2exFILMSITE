@@ -18,7 +18,8 @@
             <img src="{{ film.img.url }}" height="270" width="180">
             {{ film.director }}
             {{ film.bio }}
-            {{ film.get_category_display}}
+
+             <a href="{% url 'film_site:show_film_genre' film.category%}"> {{ film.get_category_display}}  </a>
 
             {{ avgrating.rating__avg|floatformat:1 }}
 
