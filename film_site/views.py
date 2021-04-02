@@ -61,7 +61,8 @@ def show_film(request, film_name_slug):
         curfilmreviews = Review.objects.filter(film=film)
         avgrating = Review.objects.filter(film=film).aggregate(Avg('rating'))
         film.views = film.views+1
-        film.rating = float(avgrating['rating__avg'])
+        if avgrating['rating__avg'] != None :
+             film.rating = float(avgrating['rating__avg'])
         film.save()
 
         context_dict['film'] = film

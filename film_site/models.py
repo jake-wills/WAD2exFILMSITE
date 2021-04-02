@@ -30,7 +30,7 @@ class Film(models.Model):
     NAME_MAX_LENGTH = 128
     BIO_MAX_LENGTH = 500
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
-    rating = models.DecimalField(default=0,max_digits=2, decimal_places=1)
+    rating = models.DecimalField(default=0 ,max_digits=2, decimal_places=1)
     reviews = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     director = models.CharField(max_length=NAME_MAX_LENGTH)
