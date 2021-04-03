@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Category(models.Model):
@@ -36,7 +37,11 @@ class Film(models.Model):
     director = models.CharField(max_length=NAME_MAX_LENGTH)
     bio = models.CharField(max_length=BIO_MAX_LENGTH)
     views = models.IntegerField(default=0)
+
+
+
     img = models.ImageField(upload_to='film_images/', blank=True)
+
     category = models.PositiveSmallIntegerField(choices=(
         (1, "Action-Adventure"),
         (2, "Comedy"),
@@ -75,6 +80,18 @@ class Review(models.Model):
         MaxValueValidator(5),
         MinValueValidator(0)])
     reviewtext = models.CharField(max_length=REVIEW_MAX_LENGTH)
+    review_time = models.DateTimeField(editable=False,default=timezone.now())
+
+
+
+    def save(self, *args, **kwargs):
+
+        if not self.id:
+            self.created = timezone.now()
+        return super(Review, self).save(*args, **kwargs)
+
+
+
     def __str__(self):
         return self.reviewtext
 

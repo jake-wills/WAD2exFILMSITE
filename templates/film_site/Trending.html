@@ -2,23 +2,17 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    {% if category %}
-        {{ category.catname }}
-    {% else %}
-        Unknown category
-    {% endif %}
+
 {% endblock %}
 
 {% block body_block %}
 
-    {% if category %}
+    {% if recentreviews %}
         <div class="filminfo">
-            <h1> {{ catname }}</h1><br>
-
+            <h1> Trending </h1><br>
 
             <div class="topfilms">
-                <h1> Most Popular</h1>
-                {% for f in topFilms %}
+                {% for f in trendingfilms %}
                     <a href="{% url 'film_site:show_film' f.slug %}">{{ f.name }}
                     <img src="{{ f.img.url }}" height="180" width="120">
                     </a>
@@ -29,12 +23,17 @@
             <br>
 
             <div class="sidetab">
-                <h3>A-Z {{ catname }} films </h3>
+                <h3>Recent Reviews </h3>
 
-                {% for f in catFilms %}
-                    <a href="{% url 'film_site:show_film' f.slug %}">{{ f.name }}</a>
-                    <br>
+                {% for r in recentreviews %}
+                    <h3> {{r.film}}</h3>
+                     <ul>
 
+                         <li>{{r.rating }} /5 </li>
+                         <li>{{r.reviewtext}}</li>
+                         <li>By:{{r.reviewer}} </li>
+
+                    </ul>
                 {% endfor %}
             </div>
 

@@ -19,6 +19,7 @@ urlpatterns = [
     path('film/<slug:film_name_slug>/', views.show_film, name='show_film'),
     path('film/<slug:film_name_slug>/add_review/', views.add_review, name='add_review'),
     path('add_review/', views.add_review, name='add_review'),
-    path('show_film_genre/<choice>/', views.show_film_genre, name="show_film_genre")
+    path('show_film_genre/<choice>/', views.show_film_genre, name="show_film_genre"),
+    path('show_trending/', views.show_trending , name="show_trending")
 
 ]

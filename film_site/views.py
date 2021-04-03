@@ -1,5 +1,7 @@
 from django.db.models import Avg
 from django.shortcuts import render
+from django.utils import timezone
+
 from film_site.models import Category, Page, Film, Review,UserProfile
 from django.http import HttpResponse
 
@@ -95,6 +97,25 @@ def show_film_genre(request, choice):
         context_dict['catFilms'] = None
         context_dict['catname'] = None
     return render(request, 'film_site/Genre.html', context=context_dict)
+
+def show_trending(request):
+    context_dict = {}
+    try:
+
+
+
+        recentreviews = Review.objects.order_by('-review_time')[:10]
+        trendingfilms = Film.objects.filter(id__in=recentreviews.values_list('film__id',flat=True))
+
+        context_dict['recentreviews'] = recentreviews
+        context_dict['trendingfilms'] = trendingfilms
+
+    except Film.DoesNotExist:
+        context_dict['recentreviews'] = None
+        context_dict['trendingfilms'] = None
+
+    return render(request, 'film_site/Trending.html', context=context_dict)
+
 
 
 @login_required

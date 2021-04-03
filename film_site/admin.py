@@ -13,7 +13,7 @@ class PageAdmin(admin.ModelAdmin):
 #     prepopulated_fields = {'slug': ('category',)}
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('reviewer', 'film', 'rating', 'reviewtext')
+    list_display = ('reviewer', 'film', 'rating', 'reviewtext','review_time')
 
 # class FilmAdmin(admin.ModelAdmin):
 #   list_display = ('title', 'category', 'url')

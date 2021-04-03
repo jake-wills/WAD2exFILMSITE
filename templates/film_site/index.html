@@ -28,8 +28,10 @@
             <ul>
                 {% for film in toprated %}
 
-                        <a href="{% url 'film_site:show_film' film.slug %}">{{ film.name }}</a>
-                        <img src="{{ film.img.url }}" height="180" width="120">
+                        <a href="{% url 'film_site:show_film' film.slug %}">
+                            <img src="{{ film.img.url }}" height="180" width="120">
+                            {{ film.name }}</a>
+
 
                 {% endfor %}
             </ul>
