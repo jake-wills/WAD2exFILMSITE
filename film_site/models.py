@@ -63,7 +63,7 @@ class Film(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='profile_images/', blank=True)
 
 
     def __str__(self):
@@ -97,16 +97,6 @@ class Review(models.Model):
 
 
 
-class Page(models.Model):
-    TITLE_MAX_LENGTH = 128
-    URL_MAX_LENGTH = 200
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    title = models.CharField(max_length=TITLE_MAX_LENGTH)
-    url = models.URLField()
-    views = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.title
 
 
