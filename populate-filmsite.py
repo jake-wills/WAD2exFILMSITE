@@ -8,6 +8,7 @@ import django
 django.setup()
 
 from film_site.models import Film
+from film_site.models import Category
 
 def populate():
 
@@ -160,10 +161,27 @@ def populate():
          'category': 5
          }
         ]
+    categories = [
+        {'category':1},
+        {'category': 2},
+        {'category': 3},
+        {'category': 4},
+        {'category': 5}
+
+    ]
 
 
     for i in Allfilms:
         add_film(i['name'],i['slug'],i['director'],i['bio'],i['img'],i['category'])
+
+    for c in categories:
+        add_categories(c['category'])
+
+
+def add_categories(category):
+    c=Category.objects.get_or_create(category=category)[0]
+    c.save()
+    return c
 
 def add_film(name, slug, director, bio,img,category):
     f = Film.objects.get_or_create(name=name, slug=slug, director=director,
