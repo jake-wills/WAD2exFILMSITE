@@ -25,16 +25,22 @@
     <div>
             <h2>Top 5 rated films</h2>
         {% if toprated %}
-            <ul>
-                {% for film in toprated %}
 
-                        <a href="{% url 'film_site:show_film' film.slug %}">
-                            <img src="{{ film.img.url }}" height="180" width="120">
-                            {{ film.name }}</a>
+                {% for film in toprated %}
+                    <div class="container">
+                         <img src="{{ film.img.url }}" height="300" width="210" class="filmimage">
+                         <div class="middle">
+                             <div class="text">
+                                 <a href="{% url 'film_site:show_film' film.slug %}">
+                                     {{ film.name }}</a>
+                             </div>
+                         </div>
+                    </div>
+
 
 
                 {% endfor %}
-            </ul>
+
         {% else %}
 
         {% endif %}

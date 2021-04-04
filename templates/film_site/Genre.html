@@ -19,9 +19,18 @@
             <div class="topfilms">
                 <h1> Most Popular</h1>
                 {% for f in topFilms %}
-                    <a href="{% url 'film_site:show_film' f.slug %}">{{ f.name }}
-                    <img src="{{ f.img.url }}" height="180" width="120">
-                    </a>
+                    <div class="container">
+                         <img src="{{ f.img.url }}" height="180" width="130" class="filmimage">
+                         <div class="middle">
+                             <div class="text">
+                                 <a href="{% url 'film_site:show_film' f.slug %}">
+                                     {{ f.name }}</a>
+                             </div>
+                         </div>
+                        <div class="ratingtext">
+                            Rating : {{f.rating }}/5
+                        </div>
+                    </div>
 
 
                 {% endfor %}

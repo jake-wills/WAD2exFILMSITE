@@ -13,7 +13,7 @@ urlpatterns = [
     # path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
-    path('restricted/', views.restricted, name='restricted'),
+    path('Account/', views.Account, name='Account'),
     path('logout/', views.user_logout, name='logout'),
 
     path('film/<slug:film_name_slug>/', views.show_film, name='show_film'),

@@ -104,8 +104,9 @@ def show_trending(request):
 
 
 
-        recentreviews = Review.objects.order_by('-review_time')[:10]
-        trendingfilms = Film.objects.filter(id__in=recentreviews.values_list('film__id',flat=True))
+        recentreviews = Review.objects.order_by('-review_time')[:5]
+        trendingfilms = Film.objects.filter(id__in=recentreviews.values_list('film__id',flat=True))[::-1]
+
 
         context_dict['recentreviews'] = recentreviews
         context_dict['trendingfilms'] = trendingfilms
@@ -213,6 +214,7 @@ def register(request):
             profile.user = user
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
+            profile.email =user.email
             profile.save()
             registered = True
         else:
@@ -248,8 +250,16 @@ def user_login(request):
 
 
 @login_required
-def restricted(request):
-    return render(request, 'film_site/restricted.html')
+def Account(request):
+    context_dict={}
+    currentuser = UserProfile.objects.get(user=request.user)
+    useremail = currentuser.email
+
+
+    context_dict['currentuser'] = currentuser
+    context_dict['useremail'] = useremail
+
+    return render(request, 'film_site/Account.html',context=context_dict)
 
 
 @login_required
