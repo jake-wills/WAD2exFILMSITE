@@ -14,9 +14,13 @@ from datetime import datetime
 
 def index(request):
     film_list = Film.objects.order_by('-name')[:5]
-    toprated = Film.objects.order_by('-rating')[:5]
+    toprated = Film.objects.order_by('-rating')[:10]
 
     context_dict = {}
+
+
+
+
     context_dict['films'] = film_list
     context_dict['toprated'] = toprated
     context_dict['boldmessage'] = 'High rated films'

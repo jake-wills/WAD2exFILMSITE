@@ -89,17 +89,22 @@ a.logo {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.content{
+    position: relative;
+    overflow: hidden;
+}
+
 .div14{
-    position: absolute;
     bottom: 15px;
+    position: relative;
 
 }
 .div14 a{
     text-decoration: none;
     color: black;
-
-
 }
+
+
 .div12 a{
     text-decoration: none;
     color: black;

@@ -11,9 +11,10 @@
 
 
 {% block body_block %}
+
     <h1>Home</h1>
-    <div>
-            <h2>Top 5 rated films</h2>
+
+            <h2>Top rated films</h2>
         {% if toprated %}
 
                 {% for film in toprated %}
@@ -33,9 +34,5 @@
 
         {% else %}
         {% endif %}
-    </div>
-
-
-
 
 {% endblock%}

@@ -37,9 +37,6 @@ class Film(models.Model):
     director = models.CharField(max_length=NAME_MAX_LENGTH)
     bio = models.CharField(max_length=BIO_MAX_LENGTH)
     views = models.IntegerField(default=0)
-
-
-
     img = models.ImageField(upload_to='film_images/', blank=True)
 
     category = models.PositiveSmallIntegerField(choices=(

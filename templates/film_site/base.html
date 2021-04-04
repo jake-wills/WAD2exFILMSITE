@@ -21,6 +21,7 @@
     </head>
 
     <body>
+
         <div class="navbar" >
            <a  class="logo" href="{% url 'film_site:index' %}"> <img src="{{ MEDIA_URL }}icon.png" alt="Logo" width="45px" height="45px" /> Rated Reels  </a>
 
@@ -55,36 +56,33 @@
 
 
         <div class="div12">
-            {% block body_block %}
-            {% if user.is_staff %}
-                <div class="nested">  <a href="{% url 'film_site:register' %}">bruh</a></div>
+            <div class="content">
+                {% block body_block %}
 
-                <div class="nested">  <a href="{% url 'film_site:login' %}">Login</a></div>
-            {% endif %}
-            {% endblock %}
+                {% endblock %}
+            </div>
+            <div class="div14">
+
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'film_site:logout' %}">Logout</a>
+
+
+                {% else %}
+                    <a href="{% url 'film_site:register' %}">Sign Up</a>
+                    <a href="{% url 'film_site:login' %}">Login</a>
+                {% endif %}
+
+                    <a href="{% url 'film_site:index' %}">Index</a>
+
+                </ul>
+            </div>
+
         </div>
 
-        <div class="div13">
-
-        </div>
 
 
-        <div class="div14">
 
-            {% if user.is_authenticated %}
-
-                <a href="{% url 'film_site:logout' %}">Logout</a>
-
-
-            {% else %}
-                <a href="{% url 'film_site:register' %}">Sign Up</a>
-                <a href="{% url 'film_site:login' %}">Login</a>
-            {% endif %}
-
-                <a href="{% url 'film_site:index' %}">Index</a>
-
-            </ul>
-        </div>
 
     </body>
 </html>
