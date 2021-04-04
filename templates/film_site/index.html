@@ -12,16 +12,6 @@
 
 {% block body_block %}
     <h1>Home</h1>
-  <!--  <div>
-        {% if user.is_authenticated %}
-            howdy {{ user.username }}!
-        {% else %}
-            hey there partner!
-        {% endif %}
-        <br />
-        <strong>{{ boldmessage }} </strong> <br />
-    </div>
--->
     <div>
             <h2>Top 5 rated films</h2>
         {% if toprated %}
@@ -42,9 +32,8 @@
                 {% endfor %}
 
         {% else %}
-
         {% endif %}
-        </div>
+    </div>
 
 
 

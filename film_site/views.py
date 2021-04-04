@@ -177,11 +177,12 @@ def Account(request):
     currentuser = UserProfile.objects.get(user=request.user)
     useremail = currentuser.email
     userpic = currentuser.picture
+    Accountreviews=Review.objects.filter(reviewer=request.user)
 
     context_dict['currentuser'] = currentuser
     context_dict['useremail'] = useremail
     context_dict['userpic'] = userpic
-
+    context_dict['Accountreviews'] = Accountreviews
     return render(request, 'film_site/Account.html', context=context_dict)
 
 
