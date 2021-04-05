@@ -6,18 +6,23 @@
 {% endblock %}
 </title>
 
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+{% endblock %}
+
 {% block body_block %}
-    <h1>Add Review to {{ film.name }} </h1>
+    <div class="form_css">
+        <h1>Add Review to: {{ film.name }}</h1>
 
-        <form id="add_review_form" method="post" action="{% url 'film_site:add_review'  film.slug %}">
-            {% csrf_token %}
+            <form id="add_review_form" method="post" action="{% url 'film_site:add_review'  film.slug %}">
+                {% csrf_token %}
 
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Add Review"/>
-        </form>
-
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+                <input type="submit" name="submit" value="Add Review"/>
+            </form>
+    </div>
 {% endblock %}

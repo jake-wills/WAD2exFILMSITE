@@ -10,36 +10,42 @@
     {% endif %}
 {% endblock %}
 
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'film.css' %}">
+{% endblock %}
+
+
+
 {% block body_block %}
 
     {% if film %}
-        <div class="filminfo">
-            <h1> {{ film.name }}</h1>
+        <div class="bodycontainer">
+             <h1> {{ film.name }}</h1>
 
-            <img src="{{ film.img.url }}" height="270" width="180">
-            
-           <strong>Director: </strong>{{ film.director }}</br>
-            <strong>Description: </strong>{{ film.bio }}</br>
 
-             <strong>Category: </strong><a href="{% url 'film_site:show_film_genre' film.category%}"> {{ film.get_category_display}}  </a> </br>
-            
-             <strong>Rating:  </strong>{{ avgrating.rating__avg|floatformat:1 }}
+            <img src="{{ film.img.url }}" height="270" width="180" class="bigfilm">
+            <br>
 
-            <div class="Add Review">
-             {% if user.is_authenticated %}
+            <div class="biotext">
+
+                 <strong>Director: </strong>{{ film.director }}<br><br>
+                 <strong>Description: </strong>{{ film.bio }}<br><br>
+                 <strong>Category: </strong><a href="{% url 'film_site:show_film_genre' film.category%}"> {{ film.get_category_display}}  </a> <br><br>
+                 <strong>Rating:  </strong>{{ avgrating.rating__avg|floatformat:1 }}
+            </div>
+
+
+            {% if user.is_authenticated %}
+              <div class="AddReview">
                 </br>
                 <a href="{% url 'film_site:add_review' film.slug %}">Add review</a>
+              </div>
             {% endif %}
-            {% else %}
-
-                The Specified Film does not exist.
-           {% endif %}
-         </div>
          
-            <div class="Similar films">
+            <div class="Similarfilms">
              <h3>Similar films</h3>
                 {% for f in similar_films %}
-                     {% if film.name == f.name %}
+                    {% if film.name == f.name %}
                     {% else %}
                      <div class="container">
                          <img src="{{ f.img.url }}" height="180" width="130" class="filmimage">
@@ -51,11 +57,11 @@
 
                          </div>
                     </div>
-
                     {% endif %}
                 {% endfor %}
             </div>
-            
+        </div>
+
 
         <div class="sidetab">
             {% if reviews %}
@@ -74,6 +80,10 @@
             <strong> No reviews for this film yet.</strong>
             {% endif %}
         </div>
+
+    {% else %}
+        The Specified Film does not exist.
+    {% endif %}
 
 
 {% endblock %}

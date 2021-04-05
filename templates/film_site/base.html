@@ -15,7 +15,6 @@
             {% endblock %}
         </title>
         <link rel="stylesheet" href="{% static 'base.css' %}">
-        <link rel="stylesheet" href="{% static 'form.css' %}">
         {% block head_block %}
         {% endblock %}
     </head>
@@ -61,23 +60,15 @@
 
                 {% endblock %}
             </div>
+
             <div class="div14">
 
-                {% if user.is_authenticated %}
 
-                    <a href="{% url 'film_site:logout' %}">Logout</a>
-
-
-                {% else %}
-                    <a href="{% url 'film_site:register' %}">Sign Up</a>
-                    <a href="{% url 'film_site:login' %}">Login</a>
-                {% endif %}
-
-                    <a href="{% url 'film_site:index' %}">Index</a>
+                    <a href="{% url 'film_site:index' %}">Home ||</a>
 					
 					<a href="{% url 'film_site:contact_us' %}">Contact Us</a>
 
-                </ul>
+
             </div>
 
         </div>
