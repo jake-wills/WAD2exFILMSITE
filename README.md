@@ -1,5 +1,7 @@
 # WAD2exFILMSITE
-Film ratings site for uni project
+Film ratings site for second year University project for Web App development Module
+This project was intended to be done as part of a group project, However my group did not engage in the task until very late on in the process,
+resulting in what was a mostly solo creation. 
 
 All  Film Images and Info has been taken from IMDB https://www.imdb.com/
 
